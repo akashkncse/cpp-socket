@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <tchar.h>
 #include <iostream>
 
 #pragma comment(lib, "Ws2_32.lib")
@@ -30,14 +31,30 @@ int main()
 	if (serverSocket == INVALID_SOCKET)
 	{
 		std::cout << "Eror at socket(): " << WSAGetLastError() << std::endl;
+		closesocket(serverSocket);
 		WSACleanup();
 		return 0;
 	}
 	else {
 		std::cout << "socket is OK!" << std::endl;
 	}
+	sockaddr_in service;
+	service.sin_family = AF_INET;
+	u_short port = 8000;
+	InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr);
+	service.sin_port = htons(port);
+	if (bind(serverSocket, (SOCKADDR*)&service, sizeof(service)) == SOCKET_ERROR) {
+		std::cout << "bind() error: " << WSAGetLastError() << std::endl;
+		closesocket(serverSocket);
+		WSACleanup();
+		return 0;
+	}
+	else {
+		std::cout << "bind() is OK!" << std::endl;
+	}
+
+
 
 	closesocket(serverSocket);
-
 	WSACleanup();
 }
