@@ -24,6 +24,7 @@
     <ProjectGuid>{34469182-7d47-422e-8f17-9765fecd266e}</ProjectGuid>
     <RootNamespace>cppsocketprogramming</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>socket-server</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
