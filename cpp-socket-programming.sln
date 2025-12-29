@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-server", "cpp-socket-programming.vcxproj", "{34469182-7D47-422E-8F17-9765FECD266E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-client", "..\socket-client\socket-client.vcxproj", "{5A60AB28-9B15-441D-8A4E-2314503B5723}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-client", "socket-client\socket-client.vcxproj", "{5A60AB28-9B15-441D-8A4E-2314503B5723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
