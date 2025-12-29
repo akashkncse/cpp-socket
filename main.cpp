@@ -41,7 +41,8 @@ int main()
 	sockaddr_in service;
 	service.sin_family = AF_INET;
 	u_short port = 8000;
-	InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr);
+	//InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr); <- Specific IP
+	service.sin_addr.s_addr = htonl(INADDR_ANY);
 	service.sin_port = htons(port);
 	if (bind(serverSocket, (SOCKADDR*)&service, sizeof(service)) == SOCKET_ERROR) {
 		std::cout << "bind() error: " << WSAGetLastError() << std::endl;
@@ -52,7 +53,23 @@ int main()
 	else {
 		std::cout << "bind() is OK!" << std::endl;
 	}
-
+	if (listen(serverSocket, 1) == SOCKET_ERROR) {
+		std::cout << "listen(): Error listening on socket " << WSAGetLastError() << std::endl;
+	}
+	else {
+		std::cout << "listen() OK!, waiting for connections..." << std::endl;
+	}
+	SOCKET acceptSocket;
+	acceptSocket = accept(serverSocket, NULL, NULL);
+	if (acceptSocket == INVALID_SOCKET)
+	{
+		std::cout << "accept() failed: " << WSAGetLastError() << std::endl;
+		WSACleanup();
+		return -1;
+	}
+	else {
+		std::cout << "accept() is OK!" << std::endl;
+	}
 
 
 	closesocket(serverSocket);
