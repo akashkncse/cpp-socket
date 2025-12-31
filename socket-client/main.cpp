@@ -6,6 +6,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <iostream>
+#include <cstring>
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -51,7 +52,7 @@ int main()
 		std::cout << "Client: connect() is OK." << std::endl;
 		std::cout << "Client: Can start sending and receiving data..." << std::endl;
 	}
-	char rebuf[300] = "";
+	/*char rebuf[300] = "";
 	int totalBytes = 0;
 	int bytesReceived = 0;
 	do {
@@ -64,7 +65,23 @@ int main()
 	if (bytesReceived == SOCKET_ERROR) {
 		std::cout << "recv() failed: " << WSAGetLastError() << std::endl;
 	}
-	std::cout << rebuf << std::endl;
+	std::cout << rebuf << std::endl;*/
+	const int size = 100;
+	char msg[size];
+	std::cin.getline(msg, size);
+	int msglen = strlen(msg) + 1; // for '\0' at the end
+	int msgsenlen = 0;
+	do {
+		int x = send(clientSocket, msg + msgsenlen, msglen, 0);
+		if (x == SOCKET_ERROR) {
+			std::cout << "send() failed: " << WSAGetLastError() << std::endl;
+			break;
+		}
+		else {
+			msgsenlen += x;
+		}
+	} while (msgsenlen < msglen);
+
 	WSACleanup();
 	return 0;
 }

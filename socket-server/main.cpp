@@ -70,20 +70,16 @@ int main()
 	else {
 		std::cout << "accept() is OK!" << std::endl;
 	}
-	const char* msg = "hi how are you";
-	int messageSize = strlen(msg);
-	int totalSent = 0;
-
-	while (totalSent < messageSize)
-	{
-		int sent = send(acceptSocket, msg + totalSent, messageSize - totalSent, 0);
-		if (sent == SOCKET_ERROR) {
-			std::cout << "Send failed: " << WSAGetLastError() << std::endl;
+	char msg[100];
+	int bytesReceived = 0;
+	while (true) {
+		int x = recv(acceptSocket, msg + bytesReceived, 100, 0);
+		if (x == SOCKET_ERROR) {
 			break;
 		}
-		totalSent += sent;
+		bytesReceived += x;
+		std::cout << msg << std::endl;
 	}
-	closesocket(serverSocket);
-	closesocket(serverSocket);
+
 	WSACleanup();
 }
