@@ -51,6 +51,20 @@ int main()
 		std::cout << "Client: connect() is OK." << std::endl;
 		std::cout << "Client: Can start sending and receiving data..." << std::endl;
 	}
+	char rebuf[300] = "";
+	int totalBytes = 0;
+	int bytesReceived = 0;
+	do {
+		bytesReceived = recv(clientSocket, rebuf + totalBytes, sizeof(rebuf) - totalBytes - 1, 0);
+
+		if (bytesReceived > 0) {
+			totalBytes += bytesReceived;
+		}
+	} while (bytesReceived > 0 && totalBytes < sizeof(rebuf) - 1);
+	if (bytesReceived == SOCKET_ERROR) {
+		std::cout << "recv() failed: " << WSAGetLastError() << std::endl;
+	}
+	std::cout << rebuf << std::endl;
 	WSACleanup();
 	return 0;
 }

@@ -37,6 +37,7 @@ int main()
 	else {
 		std::cout << "socket is OK!" << std::endl;
 	}
+
 	sockaddr_in service;
 	service.sin_family = AF_INET;
 	u_short port = 8000;
@@ -69,8 +70,20 @@ int main()
 	else {
 		std::cout << "accept() is OK!" << std::endl;
 	}
+	const char* msg = "hi how are you";
+	int messageSize = strlen(msg);
+	int totalSent = 0;
 
-
+	while (totalSent < messageSize)
+	{
+		int sent = send(acceptSocket, msg + totalSent, messageSize - totalSent, 0);
+		if (sent == SOCKET_ERROR) {
+			std::cout << "Send failed: " << WSAGetLastError() << std::endl;
+			break;
+		}
+		totalSent += sent;
+	}
+	closesocket(serverSocket);
 	closesocket(serverSocket);
 	WSACleanup();
 }
