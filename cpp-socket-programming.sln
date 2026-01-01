@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-client", "socket-cli
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socket-server", "socket-server\cpp-socket-programming.vcxproj", "{34469182-7D47-422E-8F17-9765FECD266E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetworkCommon", "NetworkCommon\NetworkCommon.vcxitems", "{4F303D74-9413-48FB-8B03-53185C6F7268}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -37,5 +39,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A913693F-A657-42FC-94EE-EB8E23507F9F}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		NetworkCommon\NetworkCommon.vcxitems*{34469182-7d47-422e-8f17-9765fecd266e}*SharedItemsImports = 4
+		NetworkCommon\NetworkCommon.vcxitems*{4f303d74-9413-48fb-8b03-53185c6f7268}*SharedItemsImports = 9
+		NetworkCommon\NetworkCommon.vcxitems*{5a60ab28-9b15-441d-8a4e-2314503b5723}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal
