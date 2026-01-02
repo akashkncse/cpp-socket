@@ -9,34 +9,11 @@
 #include <cstring>
 
 #pragma comment(lib, "Ws2_32.lib")
-
+#include "Network.h"
 int main()
 {
-	WSADATA wsaData;
-	WORD wVersionRequested = MAKEWORD(2, 2);
-	int wsaerr;
-	wsaerr = WSAStartup(wVersionRequested, &wsaData);
-	if (wsaerr != 0)
-	{
-		std::cout << "Failed! Winsock DLL not found!" << std::endl;
-		return 0;
-	}
-	else {
-		std::cout << "Success!" << std::endl;
-		std::cout << "The status: " << wsaData.szSystemStatus << std::endl;
-	}
-	SOCKET clientSocket = INVALID_SOCKET;
-	clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (clientSocket == INVALID_SOCKET)
-	{
-		std::cout << "Eror at socket(): " << WSAGetLastError() << std::endl;
-		closesocket(clientSocket);
-		WSACleanup();
-		return 0;
-	}
-	else {
-		std::cout << "socket is OK!" << std::endl;
-	}
+	Network::Startup();
+	SOCKET clientSocket = Network::NewSocket();
 	sockaddr_in clientService;
 	clientService.sin_family = AF_INET;
 	u_short port = 8000;

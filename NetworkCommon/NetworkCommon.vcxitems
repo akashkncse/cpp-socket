@@ -14,9 +14,9 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetSocket.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NetSocket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network.cpp" />
   </ItemGroup>
 </Project>
