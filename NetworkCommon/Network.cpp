@@ -30,3 +30,19 @@ SOCKET Network::NewSocket() {
 	std::cout << "socket is OK!" << std::endl;
 	return output_socket;
 }
+
+void Network::ServerSocketStartup(SOCKET serverSocket) {
+	sockaddr_in service;
+	service.sin_family = AF_INET;
+	u_short port = 8000;
+	service.sin_addr.s_addr = htonl(INADDR_ANY);
+	service.sin_port = htons(port);
+	if (bind(serverSocket, (SOCKADDR*)&service, sizeof(service)) == SOCKET_ERROR) {
+		std::cout << "bind() error: " << WSAGetLastError() << std::endl;
+		closesocket(serverSocket);
+		WSACleanup();
+	}
+	else {
+		std::cout << "bind() is OK!" << std::endl;
+	}
+}

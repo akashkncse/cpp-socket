@@ -15,21 +15,8 @@ int main()
 	Network::Startup();
 	SOCKET serverSocket = Network::NewSocket();
 
-	sockaddr_in service;
-	service.sin_family = AF_INET;
-	u_short port = 8000;
 	//InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr); <- Specific IP
-	service.sin_addr.s_addr = htonl(INADDR_ANY);
-	service.sin_port = htons(port);
-	if (bind(serverSocket, (SOCKADDR*)&service, sizeof(service)) == SOCKET_ERROR) {
-		std::cout << "bind() error: " << WSAGetLastError() << std::endl;
-		closesocket(serverSocket);
-		WSACleanup();
-		return 0;
-	}
-	else {
-		std::cout << "bind() is OK!" << std::endl;
-	}
+	Network::ServerSocketStartup(serverSocket);
 	if (listen(serverSocket, 1) == SOCKET_ERROR) {
 		std::cout << "listen(): Error listening on socket " << WSAGetLastError() << std::endl;
 	}
