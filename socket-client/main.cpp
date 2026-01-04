@@ -16,7 +16,7 @@ int main()
 	SOCKET clientSocket = Network::NewSocket();
 	sockaddr_in clientService;
 	clientService.sin_family = AF_INET;
-	u_short port = 8000;
+	u_short port = Network::port;
 	InetPton(AF_INET, L"127.0.0.1", &clientService.sin_addr.s_addr);
 	clientService.sin_port = htons(port);
 	if (connect(clientSocket, (SOCKADDR*)&clientService, sizeof(clientService)) == SOCKET_ERROR)

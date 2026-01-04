@@ -4,6 +4,7 @@
 class Network
 {
 public:
+	const static u_short port = 8000;
 	static void Startup();
 	static SOCKET NewSocket();
 	static void ServerSocketStartup(SOCKET);

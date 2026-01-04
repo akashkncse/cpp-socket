@@ -34,7 +34,7 @@ SOCKET Network::NewSocket() {
 void Network::ServerSocketStartup(SOCKET serverSocket) {
 	sockaddr_in service;
 	service.sin_family = AF_INET;
-	u_short port = 8000;
+	u_short port = Network::port;
 	service.sin_addr.s_addr = htonl(INADDR_ANY);
 	service.sin_port = htons(port);
 	if (bind(serverSocket, (SOCKADDR*)&service, sizeof(service)) == SOCKET_ERROR) {
