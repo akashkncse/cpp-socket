@@ -45,4 +45,10 @@ void Network::ServerSocketStartup(SOCKET serverSocket) {
 	else {
 		std::cout << "bind() is OK!" << std::endl;
 	}
+	if (listen(serverSocket, 1) == SOCKET_ERROR) {
+		std::cout << "listen(): Error listening on socket " << WSAGetLastError() << std::endl;
+	}
+	else {
+		std::cout << "listen() OK!, waiting for connections..." << std::endl;
+	}
 }

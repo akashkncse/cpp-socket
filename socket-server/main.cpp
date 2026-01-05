@@ -17,12 +17,6 @@ int main()
 
 	//InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr); <- Specific IP
 	Network::ServerSocketStartup(serverSocket);
-	if (listen(serverSocket, 1) == SOCKET_ERROR) {
-		std::cout << "listen(): Error listening on socket " << WSAGetLastError() << std::endl;
-	}
-	else {
-		std::cout << "listen() OK!, waiting for connections..." << std::endl;
-	}
 	SOCKET acceptSocket;
 	acceptSocket = accept(serverSocket, NULL, NULL);
 	if (acceptSocket == INVALID_SOCKET)
