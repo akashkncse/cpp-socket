@@ -52,3 +52,18 @@ void Network::ServerSocketStartup(SOCKET serverSocket) {
 		std::cout << "listen() OK!, waiting for connections..." << std::endl;
 	}
 }
+
+SOCKET Network::Accept(SOCKET serverSocket) {
+	SOCKET acceptSocket;
+	acceptSocket = accept(serverSocket, NULL, NULL);
+	if (acceptSocket == INVALID_SOCKET)
+	{
+		std::cout << "accept() failed: " << WSAGetLastError() << std::endl;
+		WSACleanup();
+		return INVALID_SOCKET;
+	}
+	else {
+		std::cout << "accept() is OK!" << std::endl;
+		return acceptSocket;
+	}
+}

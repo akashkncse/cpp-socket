@@ -17,17 +17,7 @@ int main()
 
 	//InetPton(AF_INET, _T("172.26.32.1"), &service.sin_addr.s_addr); <- Specific IP
 	Network::ServerSocketStartup(serverSocket);
-	SOCKET acceptSocket;
-	acceptSocket = accept(serverSocket, NULL, NULL);
-	if (acceptSocket == INVALID_SOCKET)
-	{
-		std::cout << "accept() failed: " << WSAGetLastError() << std::endl;
-		WSACleanup();
-		return -1;
-	}
-	else {
-		std::cout << "accept() is OK!" << std::endl;
-	}
+	SOCKET acceptSocket = Network::Accept(serverSocket);
 	char msg[100];
 	int bytesReceived = 0;
 	while (true) {
