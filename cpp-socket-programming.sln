@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chat-application", "chat-ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chat-server", "chat-server\chat-server.vcxproj", "{C9DE1A16-786C-4AB4-84CC-696D7F30C44F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chat-client", "chat-client\chat-client.vcxproj", "{B35C2C45-7488-436E-8329-7B0420208F14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -50,6 +52,14 @@ Global
 		{C9DE1A16-786C-4AB4-84CC-696D7F30C44F}.Release|x64.Build.0 = Release|x64
 		{C9DE1A16-786C-4AB4-84CC-696D7F30C44F}.Release|x86.ActiveCfg = Release|Win32
 		{C9DE1A16-786C-4AB4-84CC-696D7F30C44F}.Release|x86.Build.0 = Release|Win32
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Debug|x64.ActiveCfg = Debug|x64
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Debug|x64.Build.0 = Debug|x64
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Debug|x86.ActiveCfg = Debug|Win32
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Debug|x86.Build.0 = Debug|Win32
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Release|x64.ActiveCfg = Release|x64
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Release|x64.Build.0 = Release|x64
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Release|x86.ActiveCfg = Release|Win32
+		{B35C2C45-7488-436E-8329-7B0420208F14}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +67,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4F303D74-9413-48FB-8B03-53185C6F7268} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 		{C9DE1A16-786C-4AB4-84CC-696D7F30C44F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B35C2C45-7488-436E-8329-7B0420208F14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A913693F-A657-42FC-94EE-EB8E23507F9F}

@@ -23,7 +23,6 @@ SOCKET Network::NewSocket() {
 	if (output_socket == INVALID_SOCKET)
 	{
 		std::cout << "Error at socket(): " << WSAGetLastError() << std::endl;
-		closesocket(output_socket);
 		WSACleanup();
 		return INVALID_SOCKET;
 	}
