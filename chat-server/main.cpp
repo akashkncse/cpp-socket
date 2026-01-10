@@ -5,8 +5,21 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <thread>
 #include <iostream>
+
 #pragma comment(lib, "Ws2_32.lib")
+
+void handleClient(SOCKET client)
+{
+	char buf[256];
+	int n;
+	while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
+		buf[n] = 0;
+		printf("Client: %s\n", buf);
+	}
+	closesocket(client);
+}
 
 int main()
 {
@@ -38,11 +51,10 @@ int main()
 		std::cout << "SOCKET OK!" << std::endl;
 	}
 
-	int port = 8000;
 	sockaddr_in service;
 	service.sin_addr.s_addr = htonl(INADDR_ANY);
 	service.sin_family = AF_INET;
-	service.sin_port = port;
+	service.sin_port = htons(8000);
 	if (bind(serverSocket, (sockaddr*)&service, sizeof(service)) == SOCKET_ERROR) {
 		std::cout << "bind() failed: " << WSAGetLastError() << std::endl;
 		closesocket(serverSocket);
@@ -53,7 +65,7 @@ int main()
 	{
 		std::cout << "BIND OK!" << std::endl;
 	}
-	if (listen(serverSocket, 1) == SOCKET_ERROR) {
+	if (listen(serverSocket, 5) == SOCKET_ERROR) {
 		std::cout << "listen() failed: " << WSAGetLastError() << std::endl;
 		closesocket(serverSocket);
 		WSACleanup();
@@ -63,5 +75,13 @@ int main()
 	{
 		std::cout << "LISTEN OK!" << std::endl;
 	}
+	while (true) {
+		SOCKET acceptSock = accept(serverSocket, nullptr, nullptr);
+		if (acceptSock == INVALID_SOCKET) continue;
+		std::thread(handleClient, acceptSock).detach();
 
+	}
+
+	WSACleanup();
+	return 0;
 }
