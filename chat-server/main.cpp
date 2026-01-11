@@ -10,14 +10,18 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
-void handleClient(SOCKET client)
-{
-	char buf[256];
-	int n;
-	while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
-		buf[n] = 0;
-		printf("Client: %s\n", buf);
+void handleClient(SOCKET client, int id)
+{	
+	while (true)
+	{
+		char buf[256];
+		int n;
+		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
+			buf[n] = 0;
+			printf("Client %d: %s\n", id, buf);
+		}
 	}
+
 	closesocket(client);
 }
 
@@ -75,10 +79,11 @@ int main()
 	{
 		std::cout << "LISTEN OK!" << std::endl;
 	}
+	int id = 1;
 	while (true) {
 		SOCKET acceptSock = accept(serverSocket, nullptr, nullptr);
 		if (acceptSock == INVALID_SOCKET) continue;
-		std::thread(handleClient, acceptSock).detach();
+		std::thread(handleClient, acceptSock, id++).detach();
 
 	}
 

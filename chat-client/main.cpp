@@ -54,14 +54,19 @@ int main()
 		std::cout << "Client: Can start sending and receiving data..." << std::endl;
 	}
 	std::string line;
-	std::getline(std::cin, line);
-	int sent = send(clientSocket, line.c_str(), (int)line.size(), 0);
-	if (sent == SOCKET_ERROR) {
-		std::cout << "send() failed: " << WSAGetLastError() << std::endl;
+	while (true)
+	{
+		std::getline(std::cin, line);
+		if (line == "exit") goto end;
+		int sent = send(clientSocket, line.c_str(), (int)line.size(), 0);
+		if (sent == SOCKET_ERROR) {
+			std::cout << "send() failed: " << WSAGetLastError() << std::endl;
+		}
+		else {
+			std::cout << "send() OK!" << std::endl;
+		}
 	}
-	else {
-		std::cout << "send() OK!" << std::endl;
-	}
+	end: 
 	WSACleanup();
 	return 0;
 }
