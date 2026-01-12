@@ -7,20 +7,24 @@
 #include <ws2tcpip.h>
 #include <thread>
 #include <iostream>
-
+#include <vector>
 #pragma comment(lib, "Ws2_32.lib")
+
+std::vector<SOCKET> clientList;
+
 
 void handleClient(SOCKET client, int id)
 {	
-	while (true)
-	{
 		char buf[256];
 		int n;
 		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
 			buf[n] = 0;
 			printf("Client %d: %s\n", id, buf);
+			for (SOCKET clnt : clientList)
+			{
+				send(clnt, buf, n, 0);
+			}
 		}
-	}
 
 	closesocket(client);
 }
@@ -83,8 +87,8 @@ int main()
 	while (true) {
 		SOCKET acceptSock = accept(serverSocket, nullptr, nullptr);
 		if (acceptSock == INVALID_SOCKET) continue;
+		clientList.push_back(acceptSock);
 		std::thread(handleClient, acceptSock, id++).detach();
-
 	}
 
 	WSACleanup();

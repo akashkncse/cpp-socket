@@ -7,8 +7,40 @@
 #include <ws2tcpip.h>
 #include <iostream>
 #include <string>
+#include <thread>
 #pragma comment(lib, "Ws2_32.lib")
 
+//void handleClient(SOCKET client, int id)
+//{
+//	while (true)
+//	{
+//		char buf[256];
+//		int n;
+//		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
+//			buf[n] = 0;
+//			printf("Client %d: %s\n", id, buf);
+//			for (SOCKET clnt : clientList)
+//			{
+//				send(clnt, buf, sizeof(buf), 0);
+//			}
+//		}
+//	}
+//
+//	closesocket(client);
+//}
+
+void incoming(SOCKET server)
+{
+	while (true)
+	{
+		char buf[256];
+		int n;
+		while ((n = recv(server, buf, sizeof(buf) - 1, 0)) > 0) {
+			buf[n] = 0;
+			printf("%s", buf);
+		}
+	}
+}
 
 int main()
 {
@@ -54,6 +86,8 @@ int main()
 		std::cout << "Client: Can start sending and receiving data..." << std::endl;
 	}
 	std::string line;
+	std::thread(incoming, clientSocket).detach();
+
 	while (true)
 	{
 		std::getline(std::cin, line);
