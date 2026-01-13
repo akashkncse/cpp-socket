@@ -25,8 +25,7 @@ void handleClient(SOCKET client, int id)
 				send(clnt, buf, n, 0);
 			}
 		}
-
-	closesocket(client);
+		closesocket(client);
 }
 
 int main()

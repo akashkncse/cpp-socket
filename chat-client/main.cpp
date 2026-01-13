@@ -37,7 +37,7 @@ void incoming(SOCKET server)
 		int n;
 		while ((n = recv(server, buf, sizeof(buf) - 1, 0)) > 0) {
 			buf[n] = 0;
-			printf("%s", buf);
+			printf("%s\n", buf);
 		}
 	}
 }
@@ -90,6 +90,7 @@ int main()
 
 	while (true)
 	{
+		std::cout << "Enter: ";
 		std::getline(std::cin, line);
 		if (line == "exit") goto end;
 		int sent = send(clientSocket, line.c_str(), (int)line.size(), 0);
