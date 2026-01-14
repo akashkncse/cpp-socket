@@ -2,6 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#include <string>
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -18,11 +19,13 @@ void handleClient(SOCKET client, int id)
 		char buf[256];
 		int n;
 		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
+
 			buf[n] = 0;
-			printf("Client %d: %s\n", id, buf);
+			std::string mwid = "Client " + std::to_string(id) + ": " + buf;
+			printf("%s\n", mwid.c_str());
 			for (SOCKET clnt : clientList)
 			{
-				send(clnt, buf, n, 0);
+				send(clnt, mwid.c_str(), mwid.length(), 0);
 			}
 		}
 		closesocket(client);
