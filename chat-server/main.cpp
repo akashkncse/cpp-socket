@@ -14,6 +14,7 @@
 std::vector<SOCKET> clientList;
 
 
+
 void handleClient(SOCKET client, int id)
 {	
 		char buf[256];
@@ -21,8 +22,9 @@ void handleClient(SOCKET client, int id)
 		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
 
 			buf[n] = 0;
-			std::string mwid = "Client " + std::to_string(id) + ": " + buf;
-			printf("%s\n", mwid.c_str());
+			std::string mwid = std::to_string(id) + "%^%" + buf;
+			
+			printf("Client %d: %s\n", id, buf);
 			for (SOCKET clnt : clientList)
 			{
 				send(clnt, mwid.c_str(), mwid.length(), 0);

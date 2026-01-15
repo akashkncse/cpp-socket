@@ -37,7 +37,11 @@ void incoming(SOCKET server)
 		int n;
 		while ((n = recv(server, buf, sizeof(buf) - 1, 0)) > 0) {
 			buf[n] = 0;
-			printf("%s\n", buf);
+			std::string buffer = std::string(buf);
+			int f = buffer.find("%^%");
+			int id = std::atoi(buffer.substr(0, f).c_str());
+			std::string mess = buffer.substr(f + 3);
+			printf("%d, %s\n",id, mess.c_str());
 		}
 	}
 }
