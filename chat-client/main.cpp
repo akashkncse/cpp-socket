@@ -91,10 +91,9 @@ int main()
 	}
 	std::string line;
 	std::thread(incoming, clientSocket).detach();
-
+	std::cout << "You can enter the messages in the terminal to chat in the room\n";
 	while (true)
 	{
-		std::cout << "Enter: ";
 		std::getline(std::cin, line);
 		if (line == "exit") goto end;
 		int sent = send(clientSocket, line.c_str(), (int)line.size(), 0);
