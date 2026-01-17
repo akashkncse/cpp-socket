@@ -8,6 +8,9 @@
 #include <ws2tcpip.h>
 #include <thread>
 #include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <ctime>
 #include <vector>
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -18,13 +21,19 @@ std::vector<SOCKET> clientList;
 void handleClient(SOCKET client, int id)
 {	
 		char buf[256];
+		auto now = std::chrono::system_clock::now();
+		std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+		std::tm local_tm; 
+		localtime_s(&local_tm, &now_time);
 		int n;
 		while ((n = recv(client, buf, sizeof(buf) - 1, 0)) > 0) {
 
 			buf[n] = 0;
 			std::string mwid = std::to_string(id) + "%^%" + buf;
-			
-			printf("Client %d: %s\n", id, buf);
+			printf("[%02d:%02d] Client %d: %s\n",
+				local_tm.tm_hour,
+				local_tm.tm_min,
+				id, buf);
 			for (SOCKET clnt : clientList)
 			{
 				send(clnt, mwid.c_str(), mwid.length(), 0);
