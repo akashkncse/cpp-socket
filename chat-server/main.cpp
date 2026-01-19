@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <sstream>
 #include <thread>
 #include <iostream>
 #include <chrono>
@@ -99,7 +100,13 @@ int main()
 	}
 	int id = 1;
 
-	std::fstream recent("recent.txt", std::ios::out);
+	auto now = std::chrono::system_clock::now();
+	std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+	std::tm local_tm;
+	localtime_s(&local_tm, &now_time);
+	std::stringstream fnamestream;
+	fnamestream << "Chat At " << local_tm.tm_mon << local_tm.tm_wday << local_tm.tm_hour << local_tm.tm_min << local_tm.tm_sec;
+	std::fstream recent(fnamestream.str(), std::ios::out);
 	while (true) {
 		SOCKET acceptSock = accept(serverSocket, nullptr, nullptr);
 		if (acceptSock == INVALID_SOCKET) continue;
