@@ -29,6 +29,9 @@
 //	closesocket(client);
 //}
 
+int CLIENTid = -1;
+
+
 void incoming(SOCKET server)
 {
 	while (true)
@@ -44,6 +47,19 @@ void incoming(SOCKET server)
 			printf("%d, %s\n",id, mess.c_str());
 		}
 	}
+}
+
+
+void getId(SOCKET server)
+{
+	char buf[256];
+	int n;
+	std::string cid;
+	n = recv(server, buf, sizeof(buf) - 1, 0);
+	buf[n] = 0;
+	cid += std::string(buf);
+	CLIENTid = std::stoi(cid);
+	std::cout << "YOUR ID IS " << CLIENTid << std::endl;
 }
 
 int main()
@@ -89,6 +105,7 @@ int main()
 		std::cout << "Client: connect() is OK." << std::endl;
 		std::cout << "Client: Can start sending and receiving data..." << std::endl;
 	}
+	getId(clientSocket);
 	std::string line;
 	std::thread(incoming, clientSocket).detach();
 	std::cout << "You can enter the messages in the terminal to chat in the room\n";
