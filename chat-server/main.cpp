@@ -18,7 +18,11 @@
 
 std::vector<SOCKET> clientList;
 
-
+void sendID(SOCKET client, int id)
+{
+	std::string cid = std::to_string(id);
+	send(client, cid.c_str(), cid.length(), 0);
+}
 
 void handleClient(SOCKET client, int id, std::fstream& recent)
 {	
@@ -105,12 +109,14 @@ int main()
 	std::tm local_tm;
 	localtime_s(&local_tm, &now_time);
 	std::stringstream fnamestream;
-	fnamestream << "Chat At " << local_tm.tm_mon << local_tm.tm_wday << local_tm.tm_hour << local_tm.tm_min << local_tm.tm_sec;
+	fnamestream << "./chats/Chat At " << local_tm.tm_mon << local_tm.tm_wday << local_tm.tm_hour << local_tm.tm_min << local_tm.tm_sec << ".txt";
+	
 	std::fstream recent(fnamestream.str(), std::ios::out);
 	while (true) {
 		SOCKET acceptSock = accept(serverSocket, nullptr, nullptr);
 		if (acceptSock == INVALID_SOCKET) continue;
 		clientList.push_back(acceptSock);
+		sendID(acceptSock, id);
 		std::thread(handleClient, acceptSock, id++, std::ref(recent)).detach();
 	}
 

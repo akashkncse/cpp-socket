@@ -1,5 +1,0 @@
-[18:11] Client 1: hi
-[18:11] Client 1: how are you doing man
-[18:11] Client 2: yeah dude, im doing great
-[18:11] Client 2: how are you 
-[18:11] Client 1: im fine dude
