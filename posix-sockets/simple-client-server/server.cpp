@@ -50,8 +50,18 @@ int main()
 		std::cout << "accept() OK!" << std::endl;
 	}
 	char msg[40];
-	while (recv(client_socket, &msg, 40, 0) != 0)
-		;
+	char buf[40];
+	int len = 0;
+	int t = 0;
+	while (recv(client_socket, &buf, 40, 0) != 0)
+	{
+		len = buf[0];
+		printf("Recieved %d bytes\n", len);
+		for (int i = 1; i <= len; i++)
+		{
+			msg[t++] = buf[i];
+		}
+	}
 	std::cout << msg << std::endl;
 
 	close(client_socket);

@@ -32,6 +32,10 @@ int main()
         std::cout << "connect() OK!" << std::endl;
     }
     char msg[40] = "hello!";
-    send(client_socket, &msg, 40, 0);
+    int pre = strlen(msg);
+    char buf[40];
+    buf[0] = pre;
+    strcpy(buf + 1, msg);
+    send(client_socket, &buf, pre + 1, 0);
     return 0;
 }
